@@ -35,3 +35,12 @@ This is really an opportunity for me to learn as much as possible
 - Docker
 - Github Workflows
 - Elastic Beanstalk
+
+## Dev Log
+
+#### 2023-11-13
+
+- Scaffolded backend and frontend
+- Put together docker compose
+- Tested environment variables can actually be passed to the apps (they can, also node 20+ with no dotenv is a win)
+- Docker compose works. Bed time

@@ -29,6 +29,8 @@ services:
     volumes:
       - ./backend:/app
       - /app/node_modules
+    environment:
+      - TEST=${TEST}
 
 volumes:
   postgres-data:
