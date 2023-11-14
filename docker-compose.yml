@@ -21,6 +21,8 @@ services:
       - ./frontend:/app
       - /app/node_modules
   backend:
+    depends_on:
+      - database
     build:
       context: ./backend
       dockerfile: Dockerfile.dev
@@ -30,7 +32,11 @@ services:
       - ./backend:/app
       - /app/node_modules
     environment:
-      - TEST=${TEST}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_USER=${POSTGRES_USER}
+      - DB_PASSWORD=${POSTGRES_PASSWORD}
+      - DB_NAME=${POSTGRES_DB}
 
 volumes:
   postgres-data:
