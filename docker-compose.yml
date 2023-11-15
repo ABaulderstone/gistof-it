@@ -12,6 +12,8 @@ services:
     ports:
       - '5432:5432'
   frontend:
+    depends_on:
+      - backend
     build:
       context: ./frontend
       dockerfile: Dockerfile.dev
@@ -19,7 +21,8 @@ services:
       - '3000:3000'
     volumes:
       - ./frontend:/app
-      - /app/node_modules
+    environment:
+      - NEXT_PUBLIC_SERVER_URL=${BACKEND_URL}
   backend:
     depends_on:
       - database
@@ -30,13 +33,13 @@ services:
       - '8080:8080'
     volumes:
       - ./backend:/app
-      - /app/node_modules
     environment:
       - DB_HOST=${DB_HOST}
       - DB_PORT=${DB_PORT}
       - DB_USER=${POSTGRES_USER}
       - DB_PASSWORD=${POSTGRES_PASSWORD}
       - DB_NAME=${POSTGRES_DB}
+      - CORS_ORIGIN=${CORS_ORIGIN}
 
 volumes:
   postgres-data:
