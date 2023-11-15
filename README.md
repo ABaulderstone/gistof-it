@@ -54,3 +54,10 @@ Got a covid booster last night so feeling pretty brain foggy
 - Scaffolded Post domain
 - Set up networking between database and backend service, succesfully connects
 - Next step will be connecting front end to backend and configuring CORS. I think a tomorrow job.
+
+#### 2023-11-15
+
+- Configured the docker-compose.yml to pass in env variables for the front end
+- React server components feel **weird** I feel like I need to be doing something else with the loading state, I'll play around a bit more with the Loading component and artifically increasing delays to see if I need to do anything else
+- One annoying complication, server components need to request to `http://backend:8080` but client components run in the **browser** and they need to connect to `http://localhost:8080`. At this stage I think I can get away with everything being SSR but I might need to make another axios instance
+- I'll get into data seeding and making sure my backend is solid tomorrow
