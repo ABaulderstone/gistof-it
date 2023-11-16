@@ -61,3 +61,10 @@ Got a covid booster last night so feeling pretty brain foggy
 - React server components feel **weird** I feel like I need to be doing something else with the loading state, I'll play around a bit more with the Loading component and artifically increasing delays to see if I need to do anything else
 - One annoying complication, server components need to request to `http://backend:8080` but client components run in the **browser** and they need to connect to `http://localhost:8080`. At this stage I think I can get away with everything being SSR but I might need to make another axios instance
 - I'll get into data seeding and making sure my backend is solid tomorrow
+
+#### 2023-11-16
+
+- Set up migrations and seeding, good to see that my BaseEntity idea worked.
+- Running migrations and seed commands is a little bit annoying because I need to do it from **inside** the docker container. It makes sense because otherwise I won't have access to environment vars but it is inherently slower. I can foresee this being a problem in testing as well, but I'm hoping I can set up some docker files specficially for testing as well.
+- Set up a generate slug function, note to self to write some unit tests for it tomorrow. But it seems sound.
+- Still haven't touched the front end or thought about redis yet, but I have quite a way to go with the API before that's a concern
