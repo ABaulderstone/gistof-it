@@ -68,3 +68,7 @@ Got a covid booster last night so feeling pretty brain foggy
 - Running migrations and seed commands is a little bit annoying because I need to do it from **inside** the docker container. It makes sense because otherwise I won't have access to environment vars but it is inherently slower. I can foresee this being a problem in testing as well, but I'm hoping I can set up some docker files specficially for testing as well.
 - Set up a generate slug function, note to self to write some unit tests for it tomorrow. But it seems sound.
 - Still haven't touched the front end or thought about redis yet, but I have quite a way to go with the API before that's a concern
+
+#### 2023-11-22
+
+What a huge weekend
