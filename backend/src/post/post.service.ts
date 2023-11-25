@@ -20,10 +20,13 @@ export class PostService {
     const postInstance = plainToInstance(Post, createPostDto);
     postInstance.slug = '';
     const newPost = this.postRepository.create(postInstance);
-    await this.postRepository.getEntityManager().persistAndFlush(newPost);
-    const slug = generateSlug(newPost.title, newPost.id);
-    newPost.slug = slug;
-    await this.postRepository.getEntityManager().persistAndFlush(newPost);
+    await this.postRepository.getEntityManager().transactional(async (em) => {
+      await em.persistAndFlush(newPost);
+      const slug = generateSlug(newPost.title, newPost.id);
+      newPost.slug = slug;
+      await em.persistAndFlush(newPost);
+    });
+
     return newPost;
   }
 
