@@ -30,6 +30,5 @@ async function bootstrap() {
     }),
   );
   await app.listen(8080);
-  console.log('Running!');
 }
 bootstrap();

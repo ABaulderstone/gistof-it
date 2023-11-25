@@ -35,8 +35,13 @@ export class PostController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
-    return this.postService.update(+id, updatePostDto);
+  async update(
+    @Param('id') id: string,
+    @Body() updatePostDto: UpdatePostDto,
+  ): Promise<BlogPost> {
+    const result = await this.postService.update(+id, updatePostDto);
+    const post = unwrapResult(BlogPost, result);
+    return post;
   }
 
   @Delete(':id')

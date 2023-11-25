@@ -8,6 +8,7 @@ import { plainToInstance } from 'class-transformer';
 import { generateSlug } from './utilities/generate-slug';
 import { Either } from '../shared/either';
 import { RecordNotFoundError } from '../shared/errors/not-found.error';
+import { wrap } from '@mikro-orm/core';
 
 @Injectable()
 export class PostService {
@@ -46,8 +47,19 @@ export class PostService {
     return Either.left(foundPost);
   }
 
-  update(id: number, updatePostDto: UpdatePostDto) {
-    return `This action updates a #${id} post`;
+  async update(id: number, updatePostDto: UpdatePostDto) {
+    const result = await this.findOne(id);
+    if (result.isErr()) {
+      return result;
+    }
+    const foundPost = result.unwrap() as Post;
+    const updatedPost = wrap(foundPost).assign(updatePostDto);
+    if (updatePostDto.title) {
+      const slug = generateSlug(updatePostDto.title, foundPost.id);
+      updatedPost.slug = slug;
+    }
+    await this.postRepository.getEntityManager().flush();
+    return Either.left(foundPost);
   }
 
   remove(id: number) {
