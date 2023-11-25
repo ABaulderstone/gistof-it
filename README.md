@@ -69,6 +69,6 @@ Got a covid booster last night so feeling pretty brain foggy
 - Set up a generate slug function, note to self to write some unit tests for it tomorrow. But it seems sound.
 - Still haven't touched the front end or thought about redis yet, but I have quite a way to go with the API before that's a concern
 
-#### 2023-11-22
+#### 2023-11-25
 
-What a huge weekend
+After a very hectic week at work I'm ready to get back into this.

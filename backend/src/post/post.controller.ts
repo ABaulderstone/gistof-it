@@ -10,6 +10,8 @@ import {
 import { PostService } from './post.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
+import { Post as BlogPost } from './entities/post.entity';
+import { unwrapResult } from '../shared/unwrap-result';
 
 @Controller('posts')
 export class PostController {
@@ -26,8 +28,10 @@ export class PostController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.postService.findOne(+id);
+  async findOne(@Param('id') id: string): Promise<BlogPost> {
+    const postResult = await this.postService.findOne(+id);
+    const post = unwrapResult(BlogPost, postResult);
+    return post;
   }
 
   @Patch(':id')
