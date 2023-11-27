@@ -79,3 +79,13 @@ After a very hectic week at work I'm ready to get back into this.
   - It's a bit crunchy and maybe there's too much indirection/abstraction but it's something I wanted to do in a work project but didn't sit right with the rest of the team. Worst case I end up kicking myself for doing it this way, best case I have some cool stuff to show off. Right now I'm happy with the abstraction
   - It's also really improved my understanding of typescript generics which is a bonus
 - Backend is still in basic CRUD stages but it's nice to be programming again
+
+#### 2023-11-26
+
+- Improved create post method to run in a single transaction. A neat little discovery with mikro-orm, I actually really like the API for this
+- Logic in update working with slug generation neat.
+
+#### 2023-11-27
+
+- Realised we should probably have a soft delete option for posts.
+  - Everything archives for now. I'm thinking a chron job at some point to delete posts that have an update date +30 days ago or something

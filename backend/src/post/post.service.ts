@@ -31,12 +31,23 @@ export class PostService {
     return newPost;
   }
 
-  findAll(): Promise<Post[]> {
-    return this.postRepository.findAll();
+  async findAll(amount = 5, page = 1): Promise<Post[]> {
+    const offset = (page - 1) * amount;
+    const [posts, count] = await this.postRepository.findAndCount(
+      {
+        isArchived: false,
+      },
+      { limit: amount, offset },
+    );
+    console.log(count);
+    return posts;
   }
 
   async findOne(id: number): Promise<Either<Post, Error>> {
-    const foundPost = await this.postRepository.findOne({ id });
+    const foundPost = await this.postRepository.findOne({
+      id,
+      isArchived: false,
+    });
     if (!foundPost) {
       const noPostErr = new RecordNotFoundError(
         `Post with id: ${id} does not exist`,
@@ -62,7 +73,15 @@ export class PostService {
     return Either.left(foundPost);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} post`;
+  async archive(id: number): Promise<Either<Post, Error>> {
+    const result = await this.findOne(id);
+    if (result.isErr()) {
+      return result;
+    }
+    const updatedPost = wrap(result.unwrap()).assign({
+      isArchived: true,
+    }) as Post;
+    await this.postRepository.getEntityManager().flush();
+    return Either.left(updatedPost);
   }
 }

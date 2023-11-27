@@ -11,4 +11,7 @@ export class Post extends BaseEntity {
 
   @Property({ type: 'text' })
   content: string;
+
+  @Property({ default: false })
+  isArchived: boolean;
 }
