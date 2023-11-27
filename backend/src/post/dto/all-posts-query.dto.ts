@@ -4,7 +4,7 @@ import { IsOptional } from 'class-validator';
 export class AllPostsQueryDto {
   @IsOptional()
   @Transform(({ value }) => parseInt(value))
-  amount: number;
+  limit: number;
 
   @IsOptional()
   @Transform(({ value }) => parseInt(value))

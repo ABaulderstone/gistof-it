@@ -6,8 +6,8 @@ import {
   Patch,
   Param,
   Delete,
-  HttpStatus,
   Query,
+  Req,
 } from '@nestjs/common';
 import { PostService } from './post.service';
 import { CreatePostDto } from './dto/create-post.dto';
@@ -15,6 +15,7 @@ import { UpdatePostDto } from './dto/update-post.dto';
 import { Post as BlogPost } from './entities/post.entity';
 import { unwrapResult } from '../shared/unwrap-result';
 import { AllPostsQueryDto } from './dto/all-posts-query.dto';
+import { Request } from 'express';
 
 @Controller('posts')
 export class PostController {
@@ -26,9 +27,9 @@ export class PostController {
   }
 
   @Get()
-  findAll(@Query() queryParams: AllPostsQueryDto) {
-    const { amount = 5, page = 1 } = queryParams;
-    return this.postService.findAll();
+  findAll(@Req() req: Request, @Query() queryParams: AllPostsQueryDto) {
+    const { limit, page } = queryParams;
+    return this.postService.findAll(req, limit, page);
   }
 
   @Get(':id')

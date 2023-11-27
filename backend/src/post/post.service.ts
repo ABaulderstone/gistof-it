@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Req } from '@nestjs/common';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { InjectRepository } from '@mikro-orm/nestjs';
@@ -9,6 +9,9 @@ import { generateSlug } from './utilities/generate-slug';
 import { Either } from '../shared/either';
 import { RecordNotFoundError } from '../shared/errors/not-found.error';
 import { wrap } from '@mikro-orm/core';
+import { generatePagination } from '../shared/generate-pagination';
+import { Request } from 'express';
+import { Pagination } from '../shared/interfaces/pagination.interface';
 
 @Injectable()
 export class PostService {
@@ -31,16 +34,21 @@ export class PostService {
     return newPost;
   }
 
-  async findAll(amount = 5, page = 1): Promise<Post[]> {
-    const offset = (page - 1) * amount;
-    const [posts, count] = await this.postRepository.findAndCount(
+  async findAll(req: Request, limit = 5, page = 1): Promise<Pagination<Post>> {
+    const offset = (page - 1) * limit;
+    const [data, count] = await this.postRepository.findAndCount(
       {
         isArchived: false,
       },
-      { limit: amount, offset },
+      { limit, offset },
     );
-    console.log(count);
-    return posts;
+    const pagination = generatePagination<Post>(req, {
+      limit,
+      page,
+      count,
+      data,
+    });
+    return pagination;
   }
 
   async findOne(id: number): Promise<Either<Post, Error>> {
