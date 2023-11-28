@@ -89,3 +89,9 @@ After a very hectic week at work I'm ready to get back into this.
 
 - Realised we should probably have a soft delete option for posts.
   - Everything archives for now. I'm thinking a chron job at some point to delete posts that have an update date +30 days ago or something
+
+#### 2023-11-27
+
+- Set up pagination for getting all posts, I quite like the way mikro-orm handles it with `findAllAndCount`
+- Probably a little overkill with indrection again with the `generatePagination` helper function but I like the idea of it being multi-purpose and I've got that 'skinny controller' Rails mindset pretty embedded.
+- Link generation was fun, not quite HATEOS but getting a little bit closer. I wanna really narrow down on some of those REST best practices
