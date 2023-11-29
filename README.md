@@ -90,8 +90,15 @@ After a very hectic week at work I'm ready to get back into this.
 - Realised we should probably have a soft delete option for posts.
   - Everything archives for now. I'm thinking a chron job at some point to delete posts that have an update date +30 days ago or something
 
-#### 2023-11-27
+#### 2023-11-28
 
 - Set up pagination for getting all posts, I quite like the way mikro-orm handles it with `findAllAndCount`
 - Probably a little overkill with indrection again with the `generatePagination` helper function but I like the idea of it being multi-purpose and I've got that 'skinny controller' Rails mindset pretty embedded.
 - Link generation was fun, not quite HATEOS but getting a little bit closer. I wanna really narrow down on some of those REST best practices
+
+#### 2023-11-29
+
+- Added pagination and post fetching to the front end
+- The query params syntax in next server components feels a little odd and overly verbose, I don't like that it's not a hook but it's not too messy to use. I do wish it had a prebuilt interface for the props though.
+- Sever components in general feel wild like I'm still not 100% on what is being sent over the network, but it's smooth, fast, and reactive so that's cool
+- I also love that the url is the source of truth/state for the pagination. I've seen this done wrong/done this wrong in so many React apps.
