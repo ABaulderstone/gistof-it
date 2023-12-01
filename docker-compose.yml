@@ -1,6 +1,12 @@
 version: '3'
 
 services:
+  cache:
+    image: 'redis:latest'
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis-data:/data
   database:
     image: 'postgres:latest'
     volumes:
@@ -26,6 +32,7 @@ services:
   backend:
     depends_on:
       - database
+      - cache
     build:
       context: ./backend
       dockerfile: Dockerfile.dev
@@ -43,3 +50,4 @@ services:
 
 volumes:
   postgres-data:
+  redis-data:
