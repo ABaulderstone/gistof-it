@@ -47,6 +47,10 @@ services:
       - DB_PASSWORD=${POSTGRES_PASSWORD}
       - DB_NAME=${POSTGRES_DB}
       - CORS_ORIGIN=${CORS_ORIGIN}
+      - REDIS_HOST=${REDIS_HOST}
+      - EMAIL_HOST=${EMAIL_HOST}
+      - EMAIL_PASSWORD=${EMAIL_PASSWORD}
+      - EMAIL_USERNAME=${EMAIL_PASSWORD}
 
 volumes:
   postgres-data:

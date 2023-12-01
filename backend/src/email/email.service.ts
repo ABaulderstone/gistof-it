@@ -10,7 +10,7 @@ export class EmailService {
   ) {}
 
   async addEmailToQueue(data: Mail) {
-    const job = await this.emailQueue.add(data);
-    console.log(job);
+    const job = await this.emailQueue.add('test', { data });
+    console.log(job.id);
   }
 }
