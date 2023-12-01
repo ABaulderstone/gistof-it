@@ -22,16 +22,37 @@ export const generateLinks = (
   const currentPage = pageMatch ? +pageMatch[1] : 1;
   const port = mode === 'DEV' ? ':' + req.socket.localPort : '';
   const url = `${req.protocol}://${req.hostname}${port}${req.url}`;
-  const prevPageNumber = currentPage - 1;
+  const prevPageNumber = currentPage <= lastPage ? currentPage - 1 : lastPage;
   const nextPageNumber = currentPage + 1;
-  const prevPage =
-    prevPageNumber === 0
-      ? null
-      : url.replace(/page=(\d+)/, 'page=' + prevPageNumber);
-  const nextPage =
-    nextPageNumber > lastPage
-      ? null
-      : url.replace(/page=(\d+)/, 'page=' + nextPageNumber);
+  let prevPage = null;
+  let nextPage = null;
+  if (prevPageNumber > 0) {
+    const newPageSection = 'page=' + prevPageNumber;
+    if (pageMatch) {
+      prevPage = url.replace(/page=(\d+)/, newPageSection);
+    } else {
+      prevPage = url + '?' + newPageSection;
+    }
+  }
+
+  if (nextPageNumber <= lastPage) {
+    const newPageSection = 'page=' + nextPageNumber;
+    if (pageMatch) {
+      nextPage = url.replace(/page=(\d+)/, newPageSection);
+    } else {
+      nextPage = url + '?' + newPageSection;
+    }
+  }
+
+  // const prevPage =
+  //   prevPageNumber === 0
+  //     ? null
+  //     : url.replace(/page=(\d+)/, 'page=' + prevPageNumber);
+
+  // const nextPage =
+  //   nextPageNumber > lastPage
+  //     ? null
+  //     : url.replace(/page=(\d+)/, 'page=' + nextPageNumber);
   return { prevPage, nextPage };
 };
 
