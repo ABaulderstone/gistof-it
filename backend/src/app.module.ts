@@ -10,8 +10,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
     MikroOrmModule.forRoot(),
+    ConfigModule.forRoot({ isGlobal: true }),
     BullModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({

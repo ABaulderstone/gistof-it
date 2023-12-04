@@ -50,7 +50,7 @@ services:
       - REDIS_HOST=${REDIS_HOST}
       - EMAIL_HOST=${EMAIL_HOST}
       - EMAIL_PASSWORD=${EMAIL_PASSWORD}
-      - EMAIL_USERNAME=${EMAIL_PASSWORD}
+      - EMAIL_USERNAME=${EMAIL_USERNAME}
 
 volumes:
   postgres-data:

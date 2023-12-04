@@ -29,7 +29,7 @@ export class PostController {
   create(@Body() createPostDto: CreatePostDto) {
     this.emailService.addEmailToQueue({
       to: 'alex.baulderstone@gmail.com',
-      from: 'gistofit@test.com',
+      from: 'alex.baulderstone@gmail.com',
       subject: 'test',
       text: 'test email',
     });

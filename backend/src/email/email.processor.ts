@@ -8,10 +8,8 @@ export class EmailProcessor {
   constructor(private readonly mailerService: MailerService) {}
   @Process('test')
   async sendTestEmail(job: Job<Mail>) {
-    const { data } = job;
-    console.log('Test email sending');
     try {
-      const res = await this.mailerService.sendMail({ ...data });
+      const res = await this.mailerService.sendMail({ ...job.data });
       console.log('The email stuff should be here', res);
     } catch (e) {
       console.log(e);
