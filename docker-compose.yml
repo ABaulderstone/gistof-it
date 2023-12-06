@@ -1,6 +1,12 @@
 version: '3'
 
 services:
+  cache:
+    image: 'redis:latest'
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis-data:/data
   database:
     image: 'postgres:latest'
     volumes:
@@ -26,6 +32,7 @@ services:
   backend:
     depends_on:
       - database
+      - cache
     build:
       context: ./backend
       dockerfile: Dockerfile.dev
@@ -40,6 +47,11 @@ services:
       - DB_PASSWORD=${POSTGRES_PASSWORD}
       - DB_NAME=${POSTGRES_DB}
       - CORS_ORIGIN=${CORS_ORIGIN}
+      - REDIS_HOST=${REDIS_HOST}
+      - EMAIL_HOST=${EMAIL_HOST}
+      - EMAIL_PASSWORD=${EMAIL_PASSWORD}
+      - EMAIL_USERNAME=${EMAIL_USERNAME}
 
 volumes:
   postgres-data:
+  redis-data:

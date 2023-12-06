@@ -16,13 +16,23 @@ import { Post as BlogPost } from './entities/post.entity';
 import { unwrapResult } from '../shared/unwrap-result';
 import { AllPostsQueryDto } from './dto/all-posts-query.dto';
 import { Request } from 'express';
+import { EmailService } from '../email/email.service';
 
 @Controller('posts')
 export class PostController {
-  constructor(private readonly postService: PostService) {}
+  constructor(
+    private readonly postService: PostService,
+    private readonly emailService: EmailService,
+  ) {}
 
   @Post()
   create(@Body() createPostDto: CreatePostDto) {
+    this.emailService.addEmailToQueue({
+      to: 'alex.baulderstone@gmail.com',
+      from: 'alex.baulderstone@gmail.com',
+      subject: 'test',
+      text: 'test email',
+    });
     return this.postService.create(createPostDto);
   }
 

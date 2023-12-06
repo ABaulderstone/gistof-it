@@ -30,5 +30,8 @@ async function bootstrap() {
     }),
   );
   await app.listen(8080);
+  console.log(process.env.EMAIL_HOST);
+  console.log(process.env.EMAIL_USERNAME);
+  console.log(process.env.EMAIL_PASSWORD);
 }
 bootstrap();
