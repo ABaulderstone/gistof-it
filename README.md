@@ -102,3 +102,15 @@ After a very hectic week at work I'm ready to get back into this.
 - The query params syntax in next server components feels a little odd and overly verbose, I don't like that it's not a hook but it's not too messy to use. I do wish it had a prebuilt interface for the props though.
 - Sever components in general feel wild like I'm still not 100% on what is being sent over the network, but it's smooth, fast, and reactive so that's cool
 - I also love that the url is the source of truth/state for the pagination. I've seen this done wrong/done this wrong in so many React apps.
+
+#### 2023-12-10
+
+I'm not sure exactly which days which things were done, a week offline did me some good but I worked on this a bit at airports along the way.
+
+- Added `Bull` to handle queues
+- Set up a queue for sending emails
+- Using sendgrid for emails
+  - Right now it works but the verified email thing is a little annoying
+  - Also adding emails on blog create just to my personal email for testing right now, not ideal but it works as POC
+- The persisted redis data means that even if a job is created and the server is reset the job will complete later, this might have implications for cost of hosting later but it's not a huge deal
+- My goal for the rest of today is to set up a user model, and have registration emails sending out
