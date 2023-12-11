@@ -17,7 +17,10 @@ export class User extends BaseEntity {
   @Enum(() => UserStatus)
   status: UserStatus;
 
-  @OneToOne(() => UserProfile, (profile) => profile.user, { owner: true })
+  @OneToOne(() => UserProfile, (profile) => profile.user, {
+    orphanRemoval: true,
+    owner: false,
+  })
   profile: UserProfile;
 }
 

@@ -9,6 +9,9 @@ export class UserProfile extends BaseEntity {
   @Property({ nullable: true })
   location: string;
 
-  @OneToOne({ mappedBy: 'user', orphanRemoval: true })
+  @OneToOne(() => User, (user) => user.profile, {
+    orphanRemoval: true,
+    owner: true,
+  })
   user: User;
 }
