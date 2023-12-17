@@ -132,3 +132,10 @@ Of course I **would** get covid
   - A user can have many posts.
 - Realised that there's a bit of annoying stuff to do to ensure that this data is seeding correctly but there's some tricks you can use with the `Entity Manager` to make it work
 - Next step is to try and load only some attributes (User profile name) with a Post
+
+#### 2023-12-18
+
+- Loading author info in the findAll wasn't too bad
+- Mikro-orm has the `populate` method you can call on a Record or collection of records,
+  then a little wrangling of the data in the service layer to strip out stuff I didn't want to show (password and email)
+- Looks fine to do login now
