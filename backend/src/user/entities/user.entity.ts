@@ -1,7 +1,16 @@
-import { Entity, Enum, ManyToOne, OneToOne, Property } from '@mikro-orm/core';
+import {
+  Collection,
+  Entity,
+  Enum,
+  ManyToOne,
+  OneToMany,
+  OneToOne,
+  Property,
+} from '@mikro-orm/core';
 import { UserRole } from './user-role.entity';
 import { BaseEntity } from '../../shared/base.entity';
 import { UserProfile } from './user-profile.entity';
+import { Post } from '../../post/entities/post.entity';
 
 @Entity({ tableName: 'users' })
 export class User extends BaseEntity {
@@ -22,6 +31,9 @@ export class User extends BaseEntity {
     owner: false,
   })
   profile: UserProfile;
+
+  @OneToMany(() => Post, (post) => post.author)
+  posts = new Collection<Post>(this);
 }
 
 // NOTE TO SELF - Only add new status to the end of the enum. Otherwise things are going to break in an annoying way.
