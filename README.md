@@ -114,3 +114,13 @@ I'm not sure exactly which days which things were done, a week offline did me so
   - Also adding emails on blog create just to my personal email for testing right now, not ideal but it works as POC
 - The persisted redis data means that even if a job is created and the server is reset the job will complete later, this might have implications for cost of hosting later but it's not a huge deal
 - My goal for the rest of today is to set up a user model, and have registration emails sending out
+
+#### 2023-12-14
+
+Of course I **would** get covid
+
+- Mapped out a rough user model. I'm sure it will grow over time but the idea is that:
+  - Users belong to a UserRole
+  - Users have a single UserProfile
+  - User.status is an enum: Pending, Active, Suspended, Archived. I don't really see any other status possible yet but I'm sure I'll run into them as they're built
+- A weird thing is that the idea of `owner` (as to where the foreign key sits) in mikro-orm is opposite to how I _feel_ it should be.

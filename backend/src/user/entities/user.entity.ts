@@ -24,6 +24,7 @@ export class User extends BaseEntity {
   profile: UserProfile;
 }
 
+// NOTE TO SELF - Only add new status to the end of the enum. Otherwise things are going to break in an annoying way.
 export enum UserStatus {
   PENDING,
   ACTIVE,
