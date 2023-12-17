@@ -12,6 +12,7 @@ import { wrap } from '@mikro-orm/core';
 import { generatePagination } from '../shared/generate-pagination';
 import { Request } from 'express';
 import { Pagination } from '../shared/interfaces/pagination.interface';
+import { PostDataDto } from './dto/post-data.dto';
 
 @Injectable()
 export class PostService {
@@ -34,7 +35,11 @@ export class PostService {
     return newPost;
   }
 
-  async findAll(req: Request, limit = 5, page = 1): Promise<Pagination<Post>> {
+  async findAll(
+    req: Request,
+    limit = 5,
+    page = 1,
+  ): Promise<Pagination<PostDataDto>> {
     const offset = (page - 1) * limit;
     const [data, count] = await this.postRepository.findAndCount(
       {
@@ -42,11 +47,21 @@ export class PostService {
       },
       { limit, offset },
     );
-    const pagination = generatePagination<Post>(req, {
+
+    // load relationships
+    await this.postRepository.populate(data, ['author.profile']);
+
+    // update just the author fields we want
+    const posts: PostDataDto[] = data.map((post) => ({
+      ...post,
+      author: { id: post.author.id, username: post.author.profile.username },
+    }));
+
+    const pagination = generatePagination<PostDataDto>(req, {
       limit,
       page,
       count,
-      data,
+      data: posts,
     });
     return pagination;
   }

@@ -124,3 +124,11 @@ Of course I **would** get covid
   - Users have a single UserProfile
   - User.status is an enum: Pending, Active, Suspended, Archived. I don't really see any other status possible yet but I'm sure I'll run into them as they're built
 - A weird thing is that the idea of `owner` (as to where the foreign key sits) in mikro-orm is opposite to how I _feel_ it should be.
+
+#### 2023-12-17
+
+- Set up user seeding, in doing so realised that there needed to be a relationship between Users and Posts.
+  - Posts belong to an Author
+  - A user can have many posts.
+- Realised that there's a bit of annoying stuff to do to ensure that this data is seeding correctly but there's some tricks you can use with the `Entity Manager` to make it work
+- Next step is to try and load only some attributes (User profile name) with a Post
