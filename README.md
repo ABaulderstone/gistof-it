@@ -114,3 +114,28 @@ I'm not sure exactly which days which things were done, a week offline did me so
   - Also adding emails on blog create just to my personal email for testing right now, not ideal but it works as POC
 - The persisted redis data means that even if a job is created and the server is reset the job will complete later, this might have implications for cost of hosting later but it's not a huge deal
 - My goal for the rest of today is to set up a user model, and have registration emails sending out
+
+#### 2023-12-14
+
+Of course I **would** get covid
+
+- Mapped out a rough user model. I'm sure it will grow over time but the idea is that:
+  - Users belong to a UserRole
+  - Users have a single UserProfile
+  - User.status is an enum: Pending, Active, Suspended, Archived. I don't really see any other status possible yet but I'm sure I'll run into them as they're built
+- A weird thing is that the idea of `owner` (as to where the foreign key sits) in mikro-orm is opposite to how I _feel_ it should be.
+
+#### 2023-12-17
+
+- Set up user seeding, in doing so realised that there needed to be a relationship between Users and Posts.
+  - Posts belong to an Author
+  - A user can have many posts.
+- Realised that there's a bit of annoying stuff to do to ensure that this data is seeding correctly but there's some tricks you can use with the `Entity Manager` to make it work
+- Next step is to try and load only some attributes (User profile name) with a Post
+
+#### 2023-12-18
+
+- Loading author info in the findAll wasn't too bad
+- Mikro-orm has the `populate` method you can call on a Record or collection of records,
+  then a little wrangling of the data in the service layer to strip out stuff I didn't want to show (password and email)
+- Looks fine to do login now

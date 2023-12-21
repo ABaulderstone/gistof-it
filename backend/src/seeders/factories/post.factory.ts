@@ -1,4 +1,4 @@
-import { Factory, Faker, faker } from '@mikro-orm/seeder';
+import { Factory, Faker } from '@mikro-orm/seeder';
 import { Post } from '../../post/entities/post.entity';
 import { EntityData } from '@mikro-orm/core';
 export class PostFactory extends Factory<Post> {
