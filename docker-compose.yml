@@ -51,6 +51,8 @@ services:
       - EMAIL_HOST=${EMAIL_HOST}
       - EMAIL_PASSWORD=${EMAIL_PASSWORD}
       - EMAIL_USERNAME=${EMAIL_USERNAME}
+      - ADMIN_EMAIL_1=${ADMIN_EMAIL_1}
+      - ADMIN_PASSWORD_1=${ADMIN_PASSWORD_1}
 
 volumes:
   postgres-data:
